@@ -14,7 +14,11 @@ export class VSCodeYouiEvents implements YouiEvents {
 
     public doGeneratorDone(success: boolean, message: string, targetPath = ""): void {
         this.doClose();
-        this.showDoneMessage(success, message, targetPath);
+        if (success) {
+            this.showDoneMessage(message, targetPath);
+        } else {
+            this.showFailureMessage(message);
+        }
     }
 
     public doGeneratorInstall(): void {
@@ -48,18 +52,25 @@ export class VSCodeYouiEvents implements YouiEvents {
         });
     }
 
-    private showDoneMessage(success: boolean, message: string, targetPath: string): void {
+    private showDoneMessage(message: string, targetPath: string): void {
         VSCodeYouiEvents.installing = false;
-        if (success) {
-            const OpenWorkspace = 'Open Workspace';
-            vscode.window.showInformationMessage('The project has been successfully generated.\nWould you like to open it?', OpenWorkspace).then(selection => {
-                if (selection === OpenWorkspace) {
-                    this.executeCommand("vscode.openFolder", targetPath);
-                }
-            });
-        } else {
-            vscode.window.showErrorMessage(message);
-        }
+        const OpenWorkspace = 'Open Workspace';
+        vscode.window.showInformationMessage('The project has been successfully generated.\nWould you like to open it?', OpenWorkspace).then(selection => {
+            if (selection === OpenWorkspace) {
+                this.executeCommand("vscode.openFolder", targetPath);
+            }
+        });
+    }
+
+    private showFailureMessage(message: string): void {
+        VSCodeYouiEvents.installing = false;
+        const startOver = 'Start Over';
+        vscode.window.showInformationMessage(message, startOver).then(selection => {
+            if (selection === startOver) {
+                // TODO: if ext has been launched with options then have to pass options (filter,messages)
+                this.executeCommand("loadYeomanUI", undefined);
+            }
+        });
     }
 
 	private async executeCommand(commandName: string, commandParam: any): Promise<any> {
