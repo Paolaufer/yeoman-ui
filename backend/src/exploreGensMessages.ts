@@ -1,11 +1,11 @@
 export default {
-    auto_update_started: "Auto updating of installed generators...",
-    auto_update_finished: "Finished auto updating of installed generators",
-    failed_to_install: (genName: string) => `Failed to install ${genName}`,
-    failed_to_uninstall: (genName: string) => `Failed to uninstall ${genName}`,
-    uninstalling: (genName: string) => `Uninstalling ${genName} ...`,
-    uninstalled: (genName: string) => `${genName} successfully uninstalled`,
-    installing: (genName: string) => `Installing the latest version of ${genName} ...`,
-    installed: (genName: string) => `${genName} successfully installed`,
-    failed_to_get: (gensQueryUrl: string) => `Failed to get generators with the queryUrl ${gensQueryUrl}`
+    auto_update_started: "Updating the installed generators...",
+    auto_update_finished: "Update of the installed generators completed",
+    failed_to_install: (genName: string) => `Could not install the ${genName} generator`,
+    failed_to_uninstall: (genName: string) => `Could not uninstall the ${genName} generator`,
+    uninstalling: (genName: string) => `Uninstalling the ${genName} generator ...`,
+    uninstalled: (genName: string) => `The ${genName} generator has been uninstalled`,
+    installing: (genName: string) => `Installing the latest version of the ${genName} generator ...`,
+    installed: (genName: string) => `The ${genName} generator has been installed`,
+    failed_to_get: (gensQueryUrl: string) => `Could not get generators with the ${gensQueryUrl} queryUrl`
 }; 
